@@ -22,19 +22,19 @@ input.onButtonPressed(Button.A, function () {
     P1b.set(LedSpriteProperty.X, P1a.get(LedSpriteProperty.X) + 1)
 })
 function Guess_Make () {
-    // every combination of ball starting X and Direction has a different  index (0 to 14)
-    index = ball.get(LedSpriteProperty.X) + randomDir * 5 + 5
+    // every combination of ball starting X (0,1,2,3,4) and Direction (-1,0,+1) has a different  index (0 to 14)
+    index = ball.get(LedSpriteProperty.X) + Direction2 * 5 + 5
     guessCPU = guess_array[index]
     guessCPUround = Math.round(guessCPU)
 }
 function Game_Settings () {
-    LearningRate = 2
+    LearningRate = 0.5
     StartSpeed = 1
     SpeedProgression = true
 }
 function RandomBallDirection () {
     basic.pause(Delay)
-    randomDir = Math.randomRange(-1, 1)
+    Direction2 = Math.randomRange(-1, 1)
     // For Player1, randomize the ball direction and position of the ball coming off the 2LED paddle
     if (ball.get(LedSpriteProperty.Y) == 4) {
         randomPos = Math.randomRange(0, 1)
@@ -43,10 +43,10 @@ function RandomBallDirection () {
         } else {
             ball.set(LedSpriteProperty.X, P1b.get(LedSpriteProperty.X))
         }
-        ball.set(LedSpriteProperty.Direction, randomDir * 45)
+        ball.set(LedSpriteProperty.Direction, Direction2 * 45)
     } else {
         // For CPU, randomize the direction only
-        ball.set(LedSpriteProperty.Direction, randomDir * 45 + 180)
+        ball.set(LedSpriteProperty.Direction, Direction2 * 45 + 180)
     }
 }
 input.onButtonPressed(Button.B, function () {
@@ -104,7 +104,7 @@ let StartSpeed = 0
 let LearningRate = 0
 let guessCPUround = 0
 let guessCPU = 0
-let randomDir = 0
+let Direction2 = 0
 let ball: game.LedSprite = null
 let index = 0
 let P1b: game.LedSprite = null
